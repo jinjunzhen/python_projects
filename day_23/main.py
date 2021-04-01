@@ -1,16 +1,11 @@
-# This is a sample Python script.
+low = "abcdefghijklmnopqrstuvwxyz"
+upp = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+shift = 1
 
+trans = dict(     zip(map(ord, low), low[shift:] + low[:shift])     )
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# print(low[shift:] + low[:shift])
+thing = "abc"
+result = list(map(ord, low))
+print(result)
