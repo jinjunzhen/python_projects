@@ -1,16 +1,11 @@
-# This is a sample Python script.
+import pandas
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+df = pandas.read_csv("nato_phonetic_alphabet.csv")
 
+new_dict = {row.letter: row.code for (index, row) in df.iterrows()}
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+word = input("Enter your name? \n")
 
+result = [new_dict[letter.upper()] for letter in word]
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print(result)
