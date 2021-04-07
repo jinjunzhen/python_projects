@@ -1,17 +1,31 @@
+class Node(object):
+    def __init__(self, value=None):
+        self.value = value
+        self.next = None
+
+    # def __repr__(self):
+    #     rep = f"The value: <{self.value}>"
+    #     return rep
 
 
-def alphabet_position(input_str):
-    alph = "abcdefghijklmnopqrstuvwxyz"
-    dict_aplh = {letter: (ord(letter) - 96) for letter in alph}
+class SLL(object):
+    def __init__(self):
+        self.head = Node
 
-    answer = [dict_aplh[char.lower()] for char in input_str if char.isalpha()]
-    answer_str = ""
-    for ele in answer:
-        answer_str += str(ele)
-        answer_str += ' '
-    return answer_str.strip()
+    def push(self, new_data):
+        new_node = Node(new_data)
+        new_node.next = self.head
+        self.head = new_node
+
+    def list_print(self):
+        print_val = self.head
+        while print_val is not None:
+            print(print_val.value)
+            print_val = print_val.next
 
 
-
-
-print(alphabet_position("The sunset sets at twelve o' clock."))
+li = SLL()
+li.push(1)
+li.push(2)
+li.push(3)
+li.list_print()
