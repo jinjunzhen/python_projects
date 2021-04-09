@@ -16,7 +16,4 @@ message = client.messages \
                      from_='+18508057664',
                      to='+14156082311'
                  )
-
-
-
 print(message.sid)
