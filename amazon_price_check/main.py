@@ -46,3 +46,5 @@ if price_as_float < BUY_PRICE:
             to_addrs='jinjunzhen@yahoo.com',
             msg=f"Subject:Amazon Price Alert!\n\n{message}\n{url}"
         )
+
+        ## add something to push
