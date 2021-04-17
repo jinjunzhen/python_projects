@@ -10,9 +10,8 @@ auth_token = os.environ.get("auth_token")
 
 client = Client(account_sid, auth_token)
 
-message = client.messages \
-                .create(
-                     body="Yo, jjz. Havu you gotten a job yet?",
+message = client.messages.create(
+                     body="CM， 起床啦～ 太阳晒屁股啦～ \n From jinjun zhen",
                      from_='+18508057664',
                      to='+14156082311'
                  )
