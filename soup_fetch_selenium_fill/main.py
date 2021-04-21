@@ -71,10 +71,10 @@ sleep(1)
 for zillow_item in zillow_list:
     new_address = driver.find_element_by_xpath(
         '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/textarea')
-    new_address.send_keys(zillow_item['price'])
+    new_address.send_keys(zillow_item['address'])
     new_price = driver.find_element_by_xpath(
         '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input')
-    new_price.send_keys(zillow_item['address'])
+    new_price.send_keys(zillow_item['price'])
     new_link = driver.find_element_by_xpath(
         '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div/div[1]/input')
     new_link.send_keys(zillow_item['link'])
@@ -86,11 +86,6 @@ for zillow_item in zillow_list:
     sleep(1)
 
 driver.close()
-
-
-
-
-
 
 
 
