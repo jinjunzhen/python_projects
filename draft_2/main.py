@@ -1,79 +1,44 @@
-import os
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import ElementClickInterceptedException, NoSuchElementException
-from time import sleep
+import os
+import time
 
-FB_EMAIL = 'jinjunzhen@yahoo.com'
-FB_PASSWORD = os.environ['fb_pw']
-
-chrome_driver_path = "/Users/jinjunzhen/development/chromedriver"
-driver = webdriver.Chrome(executable_path=chrome_driver_path)
-
-driver.get("http://www.tinder.com")
-
-sleep(2)
-login_button = driver.find_element_by_xpath('//*[@id="u-1554866805"]/div/div[1]/div/main/div[1]/div/div/div/div/header/div/div[2]/div[2]/a')
-login_button.click()
-
-sleep(2)
-fb_login = driver.find_element_by_xpath('//*[@id="u1011719415"]/div/div/div[1]/div/div[3]/span/div[2]/button')
-fb_login.click()
-
-sleep(2)
-base_window = driver.window_handles[0]
-fb_login_window = driver.window_handles[1]
-driver.switch_to.window(fb_login_window)
-print(driver.title)
-
-email = driver.find_element_by_xpath('//*[@id="email"]')
-password = driver.find_element_by_xpath('//*[@id="pass"]')
-
-email.send_keys(FB_EMAIL)
-password.send_keys(FB_PASSWORD)
-password.send_keys(Keys.ENTER)
-
-driver.switch_to.window(base_window)
-print(driver.title)
-
-sleep(5)
-allow_location_button = driver.find_element_by_xpath('//*[@id="u1011719415"]/div/div/div/div/div[3]/button[1]')
-allow_location_button.click()
-cookies = driver.find_element_by_xpath('//*[@id="u-1554866805"]/div/div[2]/div/div/div[1]/button')
-cookies.click()
-notifications_button = driver.find_element_by_xpath('//*[@id="u1011719415"]/div/div/div/div/div[3]/button[1]')
-notifications_button.click()
-sleep(6)
-no_thanks_btn = driver.find_element_by_xpath('//*[@id="u1011719415"]/div/div/div[1]/button')
-no_thanks_btn.click()
-
-sleep(8)
-main_screen = driver.find_element_by_xpath('//*[@id="u-1554866805"]/div/div[1]/div/main/div[1]/div/div')
-main_screen.click()
+PROMISED_DOWN = 150
+PROMISED_UP = 10
+CHROME_DRIVER_PATH = os.environ['chrome_driver']
+TWITTER_EMAIL = 'YOUR TWITTER EMAIL'
+TWITTER_PASSWORD = 'YOUR TWITTER PASSWORD'
 
 
-#Tinder free tier only allows 100 "Likes" per day. If you have a premium account, feel free to change to a while loop.
-for n in range(100):
+class InternetSpeedTwitterBot:
+    def __init__(self, driver_path):
+        self.driver = webdriver.Chrome(executable_path=driver_path)
+        self.up = 0
+        self.down = 0
 
-    #Add a 1 second delay between likes.
-    sleep(1)
+    def get_internet_speed(self):
+        self.driver.get("https://www.speedtest.net/")
 
-    # try:
-    print(len(driver.window_handles))
-    print("called")
-    xpath = '//*[@id="u-1554866805"]/div/div[1]/div/div/main/div/div[1]/div[1]/div[2]/div[4]/button'
-    like_btn = driver.find_element_by_xpath(xpath)
-    like_btn.click()
+        # Depending on your location, you might need to accept the GDPR pop-up.
+        # accept_button = self.driver.find_element_by_id("_evidon-banner-acceptbutton")
+        # accept_button.click()
+
+        time.sleep(3)
+        go_button = self.driver.find_element_by_css_selector(".start-button a")
+        go_button.click()
+
+        time.sleep(60)
+        self.up = self.driver.find_element_by_xpath(
+            '//*[@id="container"]/div/div[3]/div/div/div/div[2]/div[3]/div[3]/div/div[3]/div/div/div[2]/div[1]/div[2]/div/div[2]/span').text
+        self.down = self.driver.find_element_by_xpath(
+            '//*[@id="container"]/div/div[3]/div/div/div/div[2]/div[3]/div[3]/div/div[3]/div/div/div[2]/div[1]/div[3]/div/div[2]/span').text
+
+        print(f"the up speed is: {self.up}")
+        print(f"the down speed is: {self.down}")
+
+    def tweet_at_provider(self):
+        pass
 
 
-    #Catches the cases where there is a "Matched" pop-up in front of the "Like" button:
-    # except ElementClickInterceptedException:
-    #     try:
-    #         match_popup = driver.find_element_by_css_selector(".itsAMatch a")
-    #         match_popup.click()
-
-        #Catches the cases where the "Like" button has not yet loaded, so wait 2 seconds before retrying.
-        # except NoSuchElementException:
-        #     sleep(2)
-
-driver.quit()
+bot = InternetSpeedTwitterBot(CHROME_DRIVER_PATH)
+bot.get_internet_speed()
+bot.tweet_at_provider()
