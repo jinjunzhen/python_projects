@@ -18,6 +18,7 @@ def about():
 def contact():
     return render_template("contact.html")
 
+
 #
 # @app.route("/blog/<num>")
 # def get_blog(num):
