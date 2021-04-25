@@ -1,7 +1,9 @@
-from flask import Flask, render_template
-import random
-import datetime
+from flask import Flask, render_template, request
 import requests
+import smtplib
+
+my_email = 'jinjunzhen.testing'
+password = 'abcd1234()()'
 
 app = Flask(__name__)
 
@@ -14,19 +16,30 @@ def home():
 def about():
     return render_template("about.html")
 
+
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
 
 
-#
-# @app.route("/blog/<num>")
-# def get_blog(num):
-#     print(num)
-#     blog_url = "https://api.npoint.io/5abcca6f4e39b4955965"
-#     response = requests.get(blog_url)
-#     all_posts = response.json()
-#     return render_template("blog.html", posts=all_posts)
+@app.route("/send_email", methods=["POST"])
+def send_email():
+    name1 = request.form['name1']
+    email1 = request.form['email1']
+    phone1 = request.form['phone1']
+    message1 = request.form['message1']
+
+    with smtplib.SMTP('smtp.gmail.com', 587) as connection:
+        connection.starttls()
+        connection.login(user=my_email, password=password)
+        connection.sendmail(
+            from_addr=my_email,
+            to_addrs=email1,
+            msg=f'Subject: dear {name1} \n\n phone number: {phone1} {message1}'
+        )
+
+    return render_template("contact.html")
+
 
 
 if __name__ == "__main__":

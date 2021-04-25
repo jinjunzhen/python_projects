@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <h1>Hello World</h1>
+</head>
+<body>
+<form action="/log_in",  method="POST" >
+<!--   or  <form action="{{ url_for('function name under /log_in') }}" method="post">-->
+  <div class="form-group">
+    <label for="exampleInputName">Enter Name</label>
+    <input type="text" class="form-control" name="name1" id="exampleInputName" placeholder="name">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" name="password1" id="exampleInputPassword1" placeholder="Password">
+      <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+
+</form>
+
+</body>
+</html>
