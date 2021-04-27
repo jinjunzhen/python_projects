@@ -24,7 +24,7 @@ db.create_all()
 @app.route('/')
 def home():
     ##READ ALL RECORDS
-    all_books = db.session.query(Book).all()
+    all_books = db.session.query(Book).all()    # book here is the table name
     return render_template("index.html", books=all_books)
 
 
@@ -52,6 +52,7 @@ def edit():
         book_to_update.rating = request.form["rating"]
         db.session.commit()
         return redirect(url_for('home'))
+
     book_id = request.args.get('id')
     book_selected = Book.query.get(book_id)
     return render_template("edit_rating.html", book=book_selected)
