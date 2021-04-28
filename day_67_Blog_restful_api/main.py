@@ -8,8 +8,8 @@ from flask_ckeditor import CKEditor, CKEditorField
 
 
 ## Delete this code:
-# import requests
-# posts = requests.get("https://api.npoint.io/43644ec4f0013682fc0d").json()
+import requests
+posts = requests.get("https://api.npoint.io/8359ef15181e735251b5").json()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -64,6 +64,10 @@ def about():
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
+
+@app.route("/new_post")
+def create_new_post():
+    return render_template("make_post.html")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
