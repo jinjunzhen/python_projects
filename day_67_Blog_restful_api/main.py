@@ -38,7 +38,7 @@ class CreatePostForm(FlaskForm):
     subtitle = StringField("Subtitle", validators=[DataRequired()])
     author = StringField("Your Name", validators=[DataRequired()])
     img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
-    body = StringField("Blog Content", validators=[DataRequired()])
+    body = CKEditorField("Blog Content", validators=[DataRequired()])
     submit = SubmitField("Submit Post")
 
 
@@ -65,9 +65,10 @@ def about():
 def contact():
     return render_template("contact.html")
 
-@app.route("/new_post")
+@app.route("/new_post", methods=["GET", "POST"])
 def create_new_post():
-    return render_template("make_post.html")
+    form = CreatePostForm()
+    return render_template("make_post.html", form1=form)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
