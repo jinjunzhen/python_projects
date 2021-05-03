@@ -20,6 +20,14 @@ class MyForm(FlaskForm):
 def home():
     return render_template('index.html')
 
+@app.route("/success")
+def success():
+    return render_template('success.html')
+
+@app.route("/denied")
+def denied():
+    return render_template('denied.html')
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
