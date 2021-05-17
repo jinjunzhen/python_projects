@@ -1,13 +1,47 @@
-A = [0,1,2,3,4,5]
-B = []
-C =[]
-for i in range(0, len(A)):
-    if i % 2 == 0:
-        B.append(int(1))
-        C.append(int(0))
-    if i % 2 == 1:
-        B.append(int(0))
-        C.append(int(1))
+from collections import OrderedDict
 
-print(B)
-print(C)
+
+class LRUCache(OrderedDict):
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.capacity = capacity
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self:
+            return - 1
+
+        self.move_to_end(key)
+        return self[key]
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: void
+        """
+        if key in self:
+            self.move_to_end(key)
+        self[key] = value
+        if len(self) > self.capacity:
+            self.popitem(last=False)
+
+    def print_all(self):
+        print(self)
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
+m = LRUCache(3)
+m.put(1, 1)
+m.put(2, 2)
+m.put(3, 3)
+m.put(4, 4)
+m.print_all()
