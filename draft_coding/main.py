@@ -1,47 +1,26 @@
-from collections import OrderedDict
+class GraphicalEntity:
+    def __init__(self, pos_x, pos_y, size_x, size_y):
+        print('graph init')
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.size_x = size_x
+        self.size_y = size_y
 
 
-class LRUCache(OrderedDict):
+class Button(GraphicalEntity):
+    def __init__(self, pos_x, pos_y, size_x, size_y):
+        print('Button init')
+        super().__init__(pos_x, pos_y, size_x, size_y)
+        self.status = False
 
-    def __init__(self, capacity):
-        """
-        :type capacity: int
-        """
-        self.capacity = capacity
+    def toggle(self):
+        self.status = not self.status
 
-    def get(self, key):
-        """
-        :type key: int
-        :rtype: int
-        """
-        if key not in self:
-            return - 1
 
-        self.move_to_end(key)
-        return self[key]
+class SquareButton(Button):
+    def __init__(self, pos_x, pos_y, size):
+        print('SquareButton init')
+        super().__init__(pos_x, pos_y, size, size)
 
-    def put(self, key, value):
-        """
-        :type key: int
-        :type value: int
-        :rtype: void
-        """
-        if key in self:
-            self.move_to_end(key)
-        self[key] = value
-        if len(self) > self.capacity:
-            self.popitem(last=False)
-
-    def print_all(self):
-        print(self)
-
-# Your LRUCache object will be instantiated and called as such:
-# obj = LRUCache(capacity)
-# param_1 = obj.get(key)
-# obj.put(key,value)
-m = LRUCache(3)
-m.put(1, 1)
-m.put(2, 2)
-m.put(3, 3)
-m.put(4, 4)
-m.print_all()
+b = SquareButton(10, 20, 200)
+print(b.pos_x,b.pos_y, b.size_x, b.size_y)
