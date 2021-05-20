@@ -10,3 +10,16 @@ class CreatePostForm(FlaskForm):
     img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
     body = CKEditorField("Blog Content", validators=[DataRequired()])
     submit = SubmitField("Submit Post")
+
+class RegisterForm(FlaskForm):
+    user_name = StringField("Your name", validators=[DataRequired()])
+    user_email = StringField("your email address", validators=[DataRequired()])
+    user_password = PasswordField("your pass word", validators=[DataRequired()])
+    submit = SubmitField("Submit Post")
+
+class LoginForm(FlaskForm):
+    user_email = StringField("your email address", validators=[DataRequired()])
+    user_password = PasswordField("your pass word", validators=[DataRequired()])
+    submit = SubmitField("Submit Post")
+
+
