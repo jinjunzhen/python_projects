@@ -40,7 +40,7 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(200), nullable=False)
-    img_url = db.Column(db.String(200), nullable=False)
+    img_url = db.Column(db.String(250), nullable=False)
     posts = relationship("BlogPost", back_populates="author")
     comments = relationship("Comment", back_populates="comment_author")
 
@@ -50,11 +50,7 @@ class Comment(db.Model):
     __tablename__ = "comments"
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     text = db.Column(db.Text, nullable=False)
-    # *******Add child relationship*******#
-    # "users.id" The users refers to the tablename of the Users class.
-    # "comments" refers to the comments property in the User class.
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    author = relationship("User", back_populates="comments")
     comment_author = relationship("User", back_populates="comments")
     blog_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
     on_bolg = relationship('BlogPost', back_populates="comments")
@@ -63,9 +59,7 @@ class Comment(db.Model):
 class BlogPost(db.Model):
     __tablename__ = "blog_posts"
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    # Create Foreign Key, "users.id" the users refers to the tablename of User.
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    # Create reference to the User object, the "posts" refers to the posts protperty in the User class.
     author = relationship("User", back_populates="posts")
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
@@ -132,7 +126,8 @@ def register():
         new_user = User(
             email=request.form.get('email'),
             name=request.form.get('name'),
-            password=hash_and_salted_password
+            password=hash_and_salted_password,
+            img_url=request.form.get('img_url')
         )
 
         db.session.add(new_user)
@@ -230,8 +225,8 @@ def post_comment(post_id):
     if request.method == 'POST':
         new_comment = Comment(
             text=request.form.get('comment_text'),
-            author = current_user.name,
-            blog_id = post_id
+            blog_id = post_id,
+            author_id = current_user.id
         )
         db.session.add(new_comment)
         db.session.commit()

@@ -53,11 +53,11 @@
                     {% for comment in comments %}
                     <li>
                         <div class="commenterImage">
-                            <img src="https://pbs.twimg.com/profile_images/744849215675838464/IH0FNIXk.jpg"/>
+                            <img src="{{ comment.comment_author.img_url}}"/>
                         </div>
                         <div class="commentText">
-                            {{comment.text}}
-                            <span class="date sub-text">{{comment.author.name}}</span>
+                            {{comment.text|safe}}
+                            <span class="date sub-text">by {{comment.comment_author.name}}</span>
                         </div>
                     </li>
                     <br>
